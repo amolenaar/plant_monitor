@@ -29,13 +29,6 @@ defmodule PlantMonitor.Mixfile do
   # Type `mix help compile.app` for more information.
   def application, do: application(@target)
 
-  # Specify target specific application configurations
-  # It is common that the application start function will start and supervise
-  # applications which could cause the host to fail. Because of this, we only
-  # invoke PlantMonitor.start/2 when running on a target.
-  def application("host") do
-    [extra_applications: [:logger]]
-  end
   def application(_target) do
     [mod: {PlantMonitor.Application, []},
      extra_applications: [:logger]]
@@ -53,7 +46,11 @@ defmodule PlantMonitor.Mixfile do
   def deps do
     [
       {:nerves, "~> 0.7", runtime: false},
-      {:nerves_dnssd, "~> 0.1"}
+      {:nerves_dnssd, "~> 0.1"},
+      {:cowboy, "~> 1.0"},
+      {:plug, "~> 1.4"},
+      {:plug_redirect, "~> 0.0"},
+      {:poison, "~> 3.0"}
     ] ++
     deps(@target)
   end

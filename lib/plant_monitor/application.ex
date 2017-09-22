@@ -1,29 +1,23 @@
 defmodule PlantMonitor.Application do
   use Application
 
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
-  def start(_type, _args) do
+  alias PlantMonitor.Web.Router
+  alias Plug.Adapters.Cowboy
 
-    network_time()
-    :dnssd.register("plant monitor", "_http._tcp", 80)
+  def start(_type, _args) do
 
     import Supervisor.Spec, warn: false
 
-    # Define workers and child supervisors to be supervised
+    port = Application.get_env(:plant_monitor, :port, 8080)
+
+    :dnssd.register("Plant Monitor", "_http._tcp", port)
+
     children = [
-      # worker(PlantMonitor.Worker, [arg1, arg2, arg3]),
+      Cowboy.child_spec(:http, Router, [], port: port, acceptors: 10)
     ]
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: PlantMonitor.Supervisor]
     Supervisor.start_link(children, opts)
-  end
-
-  def network_time do
-    {_, 0} = System.cmd("/usr/sbin/ntpd", ["-g"])
-    :ok
   end
 
 end

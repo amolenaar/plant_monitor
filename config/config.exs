@@ -25,8 +25,8 @@ config :nerves_network,
 
 config :nerves_network, :default,
   wlan0: [
-    ssid: "network",
-    psk: "secret",
+    ssid: "ketelhuis",
+    psk: "Cumbersome2",
     key_mgmt: :"WPA-PSK"
   ]
 
