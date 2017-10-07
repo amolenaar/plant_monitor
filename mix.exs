@@ -47,6 +47,7 @@ defmodule PlantMonitor.Mixfile do
     [
       {:nerves, "~> 0.7", runtime: false},
       {:nerves_dnssd, "~> 0.1"},
+      {:elixir_ale, "~> 1.0"},
       {:cowboy, "~> 1.0"},
       {:plug, "~> 1.4"},
       {:plug_redirect, "~> 0.0"},

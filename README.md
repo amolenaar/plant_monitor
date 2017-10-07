@@ -27,3 +27,22 @@ To start your Nerves app:
   * Official website: http://www.nerves-project.org/
   * Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
   * Source: https://github.com/nerves-project/nerves
+
+
+## Notes
+
+### SPI
+
+    iex> alias ElixirALE.SPI
+    iex> {:ok, pid} = SPI.start_link "spidev0.0"
+    {:ok, #PID<0.123.0>}
+
+Send bit stream `1100 0000 0000 0000`.
+
+    iex> SPI.transfer pid, <<192, 0>>
+    <<1, 23>>
+    iex> <<_::size(6), counts::size(10)>> = SPI.transfer pid, <<192, 0>>
+    <<1, 234>>
+    iex> count
+    490
+

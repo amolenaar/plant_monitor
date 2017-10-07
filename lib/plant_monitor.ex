@@ -1,3 +1,3 @@
 defmodule PlantMonitor do
-  
+
 end
