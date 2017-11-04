@@ -46,7 +46,7 @@ defmodule PlantMonitor.Mixfile do
   def deps do
     [
       {:nerves, "~> 0.7", runtime: false},
-      {:nerves_dnssd, "~> 0.1"},
+      {:nerves_dnssd, "~> 0.2.0"},
       {:elixir_ale, "~> 1.0"},
       {:cowboy, "~> 1.0"},
       {:plug, "~> 1.4"},
