@@ -1,6 +1,7 @@
 defmodule PlantMonitor.Application do
   use Application
 
+  alias PlantMonitor.Regelaar
   alias PlantMonitor.Web.Router
   alias Plug.Adapters.Cowboy
 
@@ -13,7 +14,8 @@ defmodule PlantMonitor.Application do
     :dnssd.register("Plant Monitor", "_http._tcp", port)
 
     children = [
-      Cowboy.child_spec(:http, Router, [], port: port, acceptors: 10)
+      Cowboy.child_spec(:http, Router, [], port: port, acceptors: 10),
+      {Regelaar, []}
     ]
 
     opts = [strategy: :one_for_one, name: PlantMonitor.Supervisor]
